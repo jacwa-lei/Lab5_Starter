@@ -3,6 +3,8 @@
 window.addEventListener('DOMContentLoaded', init);
 var horn = null;
 var volume = null;
+var confetti = new JSConfetti();
+
 function init() {
   // TODO
 	const hornSelect = document.getElementById('horn-select');
@@ -11,10 +13,9 @@ function init() {
 	const volSelect = document.getElementById('volume-controls');
 	volSelect.addEventListener('input', volSwap);
 
-	const hornButton = document.getElementById('volume');
-	hornButton.addEventListener('onclick',playSound);
+	const hornButton = document.querySelector('button');
+	hornButton.addEventListener('click', playSound);
 
-	var confetti = new JSConfetti();
 }
 
 function hornSwap(event) {
@@ -35,13 +36,11 @@ function volSwap(event) {
 	}
 }
 
-function playSound(){
-	if (horn != null){
-		document.getElementsByTagName('audio')[0].src = "./assets/audio/" + horn + ".mp3";
-		document.getElementsByTagName('audio')[0].volume = 1;
-		document.getElementsByTagName('audio')[0].play();
-		if (horn == 'party-horn'){
-			confetti.addConfetti();
-		}
+function playSound(event){
+	document.getElementsByTagName('audio')[0].src = "./assets/audio/" + horn + ".mp3";
+	document.getElementsByTagName('audio')[0].volume = volume / 100;
+	document.getElementsByTagName('audio')[0].play();
+	if (horn == 'party-horn'){
+		confetti.addConfetti();
 	}
 }
